@@ -94,7 +94,7 @@ projnc = nc.Dataset("/Volumes/Troilus/Projections/EASE2_N0_"+str(int(xsize/1000)
 outlons = projnc['lon'][:]
 outlats = projnc['lat'][:]
 
-# Create map
+# Create map for Lambert Azimuthal Equal-Area
 mp = Basemap(projection='laea',lat_0=lat_0,lon_0=lon_0,\
     llcrnrlat=bb[0], llcrnrlon=bb[1],urcrnrlat=bb[2], urcrnrlon=bb[3],resolution='c')
 
@@ -182,7 +182,7 @@ for thres in threslist:
         
         varexceed_reg = griddata((inlons.flatten(),inlats.flatten()),varexceed.flatten(),(lons22,lats22),method='nearest')
         
-        ### Reproject Output to a Common Grid - Step 2 - Convert to Regular Lat/Lon Grid ###    
+        ### Reproject Output to a Common Grid - Step 2 - Convert to Lambert Azimuthal Equal Area ###    
         outArr = mp.transform_scalar(varexceed_reg,lons2,lats2,nx,ny,returnxy=False)
         outArr[outlats < minlat] = np.nan
         

@@ -62,8 +62,6 @@ cmip6 = cmip6[cmip6$Family %in% modstokeep,]
 cmip6$Model <- as.character(cmip6$Model)
 allmods = unique(cmip6$Model)
 regs = unique(cmip6$Region)
-years = unique(cmip6$Year)
-obsyears = unique(osi$Year)
 modfams <- unique(cmip6$Family)
 
 # Identify first member of each model
