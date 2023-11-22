@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Author: Alex Crawford
 Date Created: 4 Apr 2023
 Date Modified: 8 Aug 2023
 
@@ -34,7 +35,7 @@ refyears = [1850,1900]
 othres = 'C15'
 c6thres = '10cm'
 varlist = ['cip','lrd','fad'] # ['lrd','fad'] # 
-long_name = ['ice-free period (continuous open-water period)','last retreat day','first advance day'] # ['last retreat day','first advance day'] # 
+long_name = ['contiuous ice-free period','last retreat day','first advance day'] # ['last retreat day','first advance day'] # 
 nanval = 0
 
 tcoords = np.arange(0,5.01,0.5)
@@ -113,12 +114,6 @@ for mi in range(len(files1)):
     # Combine and subset modnc vars to save memory
     modnc = xr.concat([modnc1[varlist],modnc2[varlist]], dim='time')
     
-    # Define OPC
-    # modnc['opc'] = 365 - modnc['cip']
-    # modnc['opc'].data = np.where(modnc['opc'] > 365, 365, modnc['opc'])
-    # modnc['opc'].data = np.where(modnc['opc'] < 0, 0, modnc['opc'])
-    # modnc['opc'].attrs = dict(long_name='Continuous open-water period (aka ice-free period)', units='days')
-    
     # Reprojection
     regridder = xe.Regridder(modnc1, ease2, 'bilinear', ignore_degenerate=True)
     modnc = regridder(modnc)
@@ -175,9 +170,10 @@ xro['z'] = (('y','x'), ease2['z'].data)
 for v in range(len(varlist)):
     xro[varlist[v]] = (('tanom','y','x'), outarr[:,v,:,:].astype(np.float32))
     xro[varlist[v]].data = np.where(ease2['z'] > 0, np.nan, xro[varlist[v]].data)
-    xro[varlist[v]].attrs = modnc[varlist[v]].attrs
+    xro[varlist[v]].attrs = {'long_name':long_name[v]}
     
     xro[varlist[v]+'_weight'] = (('model','tanom','y','x'), weights[varlist[v]].data)
+    xro[varlist[v]+'_weight'].attrs = {'long_name':'Model weighting (0 to 1) for ' + long_name[v]}
 
 
 v = 0

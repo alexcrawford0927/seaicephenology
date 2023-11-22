@@ -2,8 +2,8 @@
 Author: Alex Crawford
 Date Created: 3 Aug 2020
 Date Modified: 29 Aug 2022
-Purpose: Creates a pandas data frame of various regionalized sea ice phenology
-parameters for each year and model.
+Purpose: Creates a pandas data frame of various regionalized CMIP6 variables for
+each year/month.
 """
 '''*******************************************
 Set up Modules
