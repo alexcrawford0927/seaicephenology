@@ -15,7 +15,7 @@ print("Importing Modules")
 import netCDF4 as nc
 import numpy as np
 import pandas as pd
-import MERRA_Module as md
+import CycloneModule_13_2 as md
 
 '''*******************************************
 Declare Variables

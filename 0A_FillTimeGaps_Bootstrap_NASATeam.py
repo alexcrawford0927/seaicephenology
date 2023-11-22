@@ -18,7 +18,7 @@ print("Importing Modules")
 
 import os
 import numpy as np
-import MERRA_Module as md
+import CycloneModule_13_2 as md
 
 '''*******************************************
 Declare Variables

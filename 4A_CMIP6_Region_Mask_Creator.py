@@ -11,8 +11,6 @@ Set up Modules
 print("Importing Modules")
 
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
 import pandas as pd
 import netCDF4 as nc
 import os
@@ -195,29 +193,3 @@ for mod in newmods:
     
     pd.to_pickle(regs,outpath+"/Regions_"+mod+".pkl")
     
-    ##########
-    # Plotting
-    
-    # Set up figure
-    # fig = plt.figure(figsize=(8.5,8.5))
-    # ax1 = fig.add_subplot(1,1,1)
-    # plt.title("Regions",fontsize=11)
-    
-    # # Set up map
-    # mp = Basemap(projection='laea',lat_0=lat_0,lon_0=lon_0,\
-    # llcrnrlat=bb[0], llcrnrlon=bb[1],urcrnrlat=bb[2], urcrnrlon=bb[3],resolution='l')
-    
-    # # Plot contour
-    # cf2 = mp.contourf(lons,lats,regs,levs,latlon=True,cmap=plt.cm.Pastel2,extend="max")
-    
-    # # Add map accessories
-    # mp.fillcontinents(color='0.8',lake_color='0.8')
-    # mp.drawmapboundary(fill_color='1')
-    # mp.drawmeridians(np.arange(0,360,30),color="0.4",linewidth=0.8)
-    # mp.drawparallels(np.arange(0,90,15),color="0.4",linewidth=0.8)
-    
-    # # Add color bar
-    # cbar_ax = fig.add_axes([0.87, 0.25, 0.02, 0.5])
-    # cbar1 = fig.colorbar(cf2,cbar_ax,orientation='vertical',ticks=levs)
-    # cbar1.ax.set_yticklabels(levs) 
-    # cbar1.set_label('m/s')

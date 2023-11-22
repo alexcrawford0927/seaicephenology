@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import netCDF4 as nc
 import os
-import MERRA_Module as md
+import CycloneModule_13_2 as md
 
 '''#####################
  Declare Variables

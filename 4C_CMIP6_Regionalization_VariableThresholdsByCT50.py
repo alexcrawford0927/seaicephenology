@@ -12,7 +12,6 @@ print("Importing Modules")
 
 import numpy as np
 import pandas as pd
-# from osgeo import gdal, gdalnumeric
 import os
 import netCDF4 as nc
 
