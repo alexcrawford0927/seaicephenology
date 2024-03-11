@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Author: Alex Crawford
-Date Created: 3 Aug 2023
-Date Modified: 3 Aug 2023
-    
-Purpose: Applies a delta-shift bias correction on sea ice phenology data using
-the time, regional temperature, or global temperature anomaly to define the period
-of overlap.
+Created on Tue Apr  4 08:48:11 2023
+
+@author: acrawfora
 """
 
 '''*******************************************
@@ -29,7 +25,7 @@ typ = 'Thickness' # ''
 thresh = '10cm'
 regvar = 'regHB3'
 
-ivars = ['OPCavg','LRDavg','FADavg']
+ivars = ['PerCells','OPCavg','LRDavg','FADavg'] #,'CIPavg']
 tvars = ['tas']
 
 
@@ -37,6 +33,8 @@ experiment1, experiment2 = 'historical', 'ssp585'
 ymin, ymax = [1920, 2015], [2013, 2099]
 yamin, yamax = 1850, 1900
 ybmin, ybmax = 1979, 2021
+
+dmax = 425
 
 # Paths
 path = '/Volumes/Cassandra/CMIP6/RegionalStats/'
@@ -199,8 +197,12 @@ for e, exp in enumerate((experiment1,experiment2)):
 c6df = c6df.sort_values(by=['Family','Member','Region','Year'])
 for col in c6df.columns[1:]:
     c6df[col] = c6df[col].astype(float)
+c6df = c6df.reset_index()
 
-c6df['LRDavg'] = np.where(c6df['LRDavg'] > 450, c6df['LRDavg'] - 365, c6df['LRDavg'])
+# c6df['LRDavg2'] = np.where(c6df['PerCells'] == 1, c6df['LRDavg'], (c6df['LRDavg'] - (1-c6df['PerCells'])*dmax) / c6df['PerCells'])
+# c6df['LRDavg3'] = np.where(c6df['PerCells'] == 1, c6df['LRDavg'], (c6df['PerCells']*c6df['LRDavg'] + (1-c6df['PerCells'])*dmax))
+# c6df['FADavg'] = np.where(c6df['LRDavg'].values < 0, np.nan, c6df['FADavg'].values)
+# c6df['LRDavg'] = np.where(c6df['LRDavg'].values < 0, np.nan, c6df['LRDavg'].values)
 
 '''*******************************************
 Apply Bias Correction
